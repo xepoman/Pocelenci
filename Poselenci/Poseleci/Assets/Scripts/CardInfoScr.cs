@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 /*
+ * 
 Д - дерево
 К - Камень
 З - золото
