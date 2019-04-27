@@ -1,0 +1,189 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+
+public class Game
+{
+    public List<Card> ObDeckCard;
+
+    public Game()
+    {
+        ObDeckCard = ObGiveDeckCard(); //Колода общих кард
+    }
+    
+    List<Card> ObGiveDeckCard()
+    {
+        //перетусовка карт колоды из всех кард по принцепу  алгоритм Кнута-Фишера-Йейтса
+        for (int i = CardManager.AllCards.Count - 1; i > 0; i--)
+        {
+            int n = Random.Range(0,i+1);
+            var tmp = CardManager.AllCards[n];
+            CardManager.AllCards[n] = CardManager.AllCards[i];
+            CardManager.AllCards[i] = tmp;
+        }
+        return CardManager.AllCards;
+    }
+}
+
+
+public class GameManagerScr : MonoBehaviour
+{
+    public Game CurrentGame;
+    public Transform EnemyHand, PlayerHand, PerezagruzkaHand; // руки противника и игрока и поле перезагрузки 
+    public GameObject ObCardPref; // префаб общих карт
+    int Turn, TurnTime = 30;
+    public TextMeshProUGUI TurnTimeTxt; // текстовый счетчик
+    public Button EndTurBtn; // кнопка конца хода;
+    public TextMeshProUGUI RaundTxt;
+    
+
+    public List<CardInfoScr> PlayerHandCard = new List<CardInfoScr>(),// карты на руке игрока
+                            // PlayerFieldCard = new List<CardInfoScr>(),// карты на поле игрока
+                             EnemyHandCard = new List<CardInfoScr>(),// карты на руке врага
+                             PerezagruzkaFielCard = new List<CardInfoScr>();// карты на поле перезагрузки
+     private int numberRaund;                       
+
+    public bool IsPlayerTurn
+    {
+        get
+        {
+            return Turn % 2 == 0; // проверка игрок или враг
+        }
+    }
+
+    private void Start()
+    {
+        Turn = 0;
+        numberRaund = 0;
+        CurrentGame = new Game();
+
+        // GiveHandCards(CurrentGame.EnemyDeck, EnemyHand); // выдача карт противнику
+        GiveHandCards(CurrentGame.ObDeckCard, PlayerHand , 2);// выдача карт игроку
+        GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
+
+        StartCoroutine(TurnFunc());
+    }
+
+    void GiveHandCards(List<Card> deck, Transform hand, int inicil) // принемает список карт руки в трансформе руки
+    {
+        if (inicil == 2)
+        {
+            int i = 0;
+            while (i++ < 2)
+            {
+                GiveCardToHand(deck, hand);
+            }
+        }
+        if (inicil == 4)
+        {
+            RaundTxt.text = "Raund " + numberRaund.ToString();
+            int i = 0;
+            while (i++ < 4)
+            {
+                GiveCardToHand(deck, hand);
+            }
+        }
+    }
+    void GiveCardToHand(List<Card> deck, Transform hand) // функция выдачи стартовых карт
+    {
+        //Если в колоде нет карт выходим из функции
+        if (deck.Count == 0)
+            return;
+        //берем карту из колоды
+        Card card = deck[0];
+
+        //создаем копию карты префаба
+        GameObject cardGO = Instantiate(ObCardPref, hand, false);
+
+        // вызов функции показа карты
+        cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card);
+        if (hand == PlayerHand)
+        {
+            // Добавили в список карты обшего поля и руки игрока
+            PlayerHandCard.Add(cardGO.GetComponent<CardInfoScr>());
+        }
+        else
+        {
+            PerezagruzkaFielCard.Add(cardGO.GetComponent<CardInfoScr>());
+        }
+       
+        //удалили карту  из колекции
+        deck.RemoveAt(0);
+    }
+    IEnumerator TurnFunc()
+    {
+        TurnTime = 30;
+        TurnTimeTxt.text = TurnTime.ToString();
+        if(IsPlayerTurn)
+        {
+            while(TurnTime-- >0)
+            {
+                // усли ход игрока  отнимаем время от шетчика и замараживаем время на 1 сек
+                TurnTimeTxt.text = TurnTime.ToString();
+                yield return new WaitForSeconds(1);
+            }
+        }
+        else
+        {
+            Raund();
+            // усли ход пративника ждем до 27 сек и пропускает ход
+            while (TurnTime-- > 28)
+            {
+                TurnTimeTxt.text = TurnTime.ToString();
+                yield return new WaitForSeconds(1);
+            }
+        }
+        ChangeTurn();
+    }
+    void Raund()
+    {
+        if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count >= 4)
+        {
+            GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
+            return;
+        }
+        if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count < 4)
+            return;
+
+        int count = PerezagruzkaFielCard.Count == 1 ? 0: Random.Range(1, PerezagruzkaFielCard.Count);
+        
+            PerezagruzkaFielCard[count].ShowCardInfo(PerezagruzkaFielCard[count].SelfCard); // показали карту
+            PerezagruzkaFielCard[count].transform.SetParent(EnemyHand); // переместили карту от радителя
+
+        EnemyHandCard.Add(PerezagruzkaFielCard[count]);
+        PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[count]);
+        if (PerezagruzkaFielCard.Count % 2 != 0)
+        {
+            PerezagruzkaFielCard[0].transform.SetParent(PlayerHand);
+            PlayerHandCard.Add(PerezagruzkaFielCard[0]);
+            PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[0]);
+        }
+        
+        if (PerezagruzkaFielCard.Count == 0)
+                    this.numberRaund++;
+    }
+    
+    public void ChangeTurn()
+    {
+        StopAllCoroutines();
+        Turn++;
+        // включаеи и отключаем кнопку
+        EndTurBtn.interactable = IsPlayerTurn;
+
+        // если ход игрока то выдаем по карте
+      //  if (IsPlayerTurn)
+          //  GiveNewCards();
+
+        StartCoroutine(TurnFunc());
+    }
+    void GiveNewCards() // функция выдачи новой карты
+    {
+      //  GiveCardToHand(CurrentGame.EnemyDeck, EnemyHand);
+        GiveCardToHand(CurrentGame.ObDeckCard, PlayerHand); // заменит потом на фукцию выдачи карт в  поле перезагрузки 
+
+    }
+   
+}
