@@ -9,13 +9,10 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     GameManagerScr GameManager;
     CardInfoScr card;
     ResursCards resCard;
-    bool boolDerevo = false;
-    bool boolEda = false;
-    bool boolGold = false;
-    bool boolEmploe = false;
-    bool boolKamen = false;
-    bool boolPO = false;
-    bool boolOrujee = false;
+    bool boolDeystie = false;
+    bool boolProizvodstvo = false;
+    bool boolSvoystvo = false;
+    
     void Awake()
     {
         GameManager = FindObjectOfType<GameManagerScr>();
@@ -24,15 +21,26 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     }
     public void OnBeginDrag(PointerEventData eventData)// когда начинаем перетягивать
     {
-
-        /* DefaultParent = transform.parent;
-         
-
-         if (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_HAND)
-         {
-             Debug.Log("111111111");
-         }*/
-       
+        DefaultParent = transform.parent;
+        if (DefaultParent.name == "planshet"|| DefaultParent.name == "BG")
+            return;
+        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE)
+        {
+            boolDeystie = true;
+            Debug.Log("deystvie");
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST)
+        {
+            boolSvoystvo = true;
+            Debug.Log("osobenost");
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO)
+        {
+            boolProizvodstvo = true;
+            Debug.Log("proizvodstvo");
+        }
+        else return;
+        
     }
     public void OnEndDrag(PointerEventData eventData) // когда отпускаем карту
     {
@@ -42,17 +50,17 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
       //  card = eventData.pointerDrag.GetComponent<CardInfoScr>();
       // когда отпускаем карту смотрим в каком поле
         DefaultParent = transform.parent;
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_DEISTVIE)
+        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE && !boolDeystie)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             OtnimaemRes();
         }
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_OSOBENOST)
+        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST && !boolSvoystvo)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             OtnimaemRes();
         }
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_PROIZVODSTVO)
+        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO && !boolProizvodstvo)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             OtnimaemRes();
@@ -61,13 +69,26 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     }
     void OtnimaemRes()// функция расчетов отнимания ресурсов
     {
-        if (boolDerevo) resCard.ObDerevo--; boolDerevo = false;
-        if (boolEda) resCard.ObEda--; boolEda = false;
-        if (boolGold) resCard.ObGold--; boolGold = false;
-        if (boolEmploe) resCard.ObEmploe--; boolEmploe = false;
-        if (boolKamen) resCard.ObKamen--; boolKamen = false;
-        if (boolPO) resCard.ObPO--; boolPO = false;
-        if (boolOrujee) resCard.ObOrujee--; boolOrujee = false;
+
+        if (card.SelfCard.cenaPostroiki.Length >= 1 && RaschetCenCrd()) // проверка  цены 
+        {
+            string[] split = card.SelfCard.cenaPostroiki.Split('+');
+            for (int i = 0; i < split.Length; i++)
+            {
+                switch (split[i])
+                {
+                    case "Д":
+                        resCard.ObDerevo -= 1;
+                        break;
+                    case "К":
+                        resCard.ObKamen -= 1;
+                        break;
+                    case "Е":
+                        resCard.ObEda -= 1;
+                        break;
+                }
+            }
+        }
     }
     public bool RaschetCenCrd()// расчет цены постройки карты
     {
@@ -98,7 +119,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "Д":
                 if (resCard.ObDerevo >= 1)
                 {
-                    boolDerevo = true;
                     return true;
                 }
                 else
@@ -110,7 +130,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "Е":
                 if (resCard.ObEda >= 1)
                 {
-                    boolEda = true;
                     return true;
                 }
                 else
@@ -122,7 +141,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "3":
                 if (resCard.ObGold >= 1)
                 {
-                    boolGold = true;
                     return true;
                 }
                 else
@@ -134,7 +152,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "Р":
                 if (resCard.ObEmploe >= 1)
                 {
-                    boolEmploe = true;
                     return true;
                 }
                 else
@@ -146,7 +163,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "К":
                 if (resCard.ObKamen >= 1)
                 {
-                    boolKamen = true;
                     return true;
                 }
                 else
@@ -157,8 +173,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
 
             case "ПО":
                 if (resCard.ObPO >= 1)
-                {
-                    boolPO = true;
+                { 
                     return true;
                 }
                 else
@@ -170,7 +185,6 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             case "О":
                 if (resCard.ObOrujee >= 1)
                 {
-                    boolOrujee = true;
                     return true;
                 }
                 else

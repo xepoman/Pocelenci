@@ -27,17 +27,17 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , 
         
         if (GameManager.PerezagruzkaFielCard.Count % 2 == 0 && GameManager.PerezagruzkaFielCard.Count !=0)
         {
-            IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.ROZIGRISH_POLE && GameManager.IsPlayerTurn;
+            IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.ROZIGRISH_POLE && GameManager.IsPlayerTurn;
         }
         else
         {  // присвоем дрэгу евляется ли наш родитель рукойкарт игрока(что бы игрок мог передвигать карту) 
-            IsDraggable = (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_HAND
+            IsDraggable = (DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_HAND
           //вкл если надо разрешить перетягивание    //   || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_PROIZVODSTVO
                                                     //    || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_OSOBENOST
                                                     //    || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_DEISTVIE
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_IMPERIA_PROIZVODSTVO
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_IMPERIA_OSOBENOST
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_IMPERIA_DEISTVIE
+                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO
+                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST
+                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE
                                                       //  || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.ROZIGRISH_POLE
                                                         )
                                                         && GameManager.IsPlayerTurn // проверка че ход
@@ -61,7 +61,7 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , 
         if (!IsDraggable)
             return;
 
-        // текушая позиция взтяие координат в плоскости экрана  а нам нужны в world координаты 
+        // текушая позиция взтяие координат в плоскости экрана  а нам нужны в world координаты (движение карты)
         Vector2 newPos = MainCamera.ScreenToWorldPoint(eventData.position); 
         transform.position = newPos + offset; // перемешение карты с отступом
 

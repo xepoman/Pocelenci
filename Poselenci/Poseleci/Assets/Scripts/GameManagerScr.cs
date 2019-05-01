@@ -130,7 +130,7 @@ public class GameManagerScr : MonoBehaviour
         {
             Raund();
             // усли ход пративника ждем до 27 сек и пропускает ход
-            while (TurnTime-- > 28)
+            while (TurnTime-- > 29)
             {
                 TurnTimeTxt.text = TurnTime.ToString();
                 yield return new WaitForSeconds(1);

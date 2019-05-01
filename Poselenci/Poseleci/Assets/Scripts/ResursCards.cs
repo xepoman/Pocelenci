@@ -82,7 +82,7 @@ public class ResursCards : MonoBehaviour
         ObOrujee = 1;
     }
 
-   void StroykaCard()
+   public void StroykaCard()
     {
         for (int i = 0; i < GameManager.PlayerHandCard.Count; i++)
         {

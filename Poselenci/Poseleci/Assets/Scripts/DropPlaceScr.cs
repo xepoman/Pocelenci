@@ -18,13 +18,12 @@ public enum FieldType
 
 public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public FieldType Type;
+    public FieldType Typee;
     GameManagerScr GameManager;
     HodCarta HodCartaScr;
     void Awake()
     {
         GameManager = FindObjectOfType<GameManagerScr>();
-        
     }
     public void OnDrop(PointerEventData eventData) // срабатывает когда накладываем карту на карту
     {
@@ -66,14 +65,14 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
         
         if (GameManager.PerezagruzkaFielCard.Count != 0)// это проверка розыгрыша поля только от туда брать карты
         {
-            if (Type == FieldType.ROZIGRISH_POLE            // это проверка куда нельяз ложить карты
-                                        || Type == FieldType.Enemy_HAND
-                                        || Type == FieldType.Player_POLE_OSOBENOST
-                                        || Type == FieldType.Player_POLE_PROIZVODSTVO
-                                        || Type == FieldType.Player_POLE_DEISTVIE
-                                        || Type == FieldType.Player_IMPERIA_PROIZVODSTVO
-                                        || Type == FieldType.Player_IMPERIA_DEISTVIE
-                                        || Type == FieldType.Player_IMPERIA_OSOBENOST)
+            if (Typee == FieldType.ROZIGRISH_POLE            // это проверка куда нельяз ложить карты
+                                        || Typee == FieldType.Enemy_HAND
+                                        || Typee == FieldType.Player_POLE_OSOBENOST
+                                        || Typee == FieldType.Player_POLE_PROIZVODSTVO
+                                        || Typee == FieldType.Player_POLE_DEISTVIE
+                                        || Typee == FieldType.Player_IMPERIA_PROIZVODSTVO
+                                        || Typee == FieldType.Player_IMPERIA_DEISTVIE
+                                        || Typee == FieldType.Player_IMPERIA_OSOBENOST)
             {
                 return true;
             }
@@ -81,19 +80,19 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
         }
         else
         {
-            if (Type == FieldType.Enemy_HAND || Type == FieldType.ROZIGRISH_POLE)
+            if (Typee == FieldType.Enemy_HAND || Typee == FieldType.ROZIGRISH_POLE)
             {
                 return true;
             }
-            else if(poleCard == 1 && Type != FieldType.Player_POLE_PROIZVODSTVO || !HodCartaScr.RaschetCenCrd())
+            else if(poleCard == 1 && Typee != FieldType.Player_POLE_PROIZVODSTVO || !HodCartaScr.RaschetCenCrd())
             {
                 return true;
             }
-            else if (poleCard == 2 && Type != FieldType.Player_POLE_OSOBENOST || !HodCartaScr.RaschetCenCrd())
+            else if (poleCard == 2 && Typee != FieldType.Player_POLE_OSOBENOST || !HodCartaScr.RaschetCenCrd())
             {
                 return true;
             }
-            else if (poleCard == 3 && Type != FieldType.Player_POLE_DEISTVIE || !HodCartaScr.RaschetCenCrd())
+            else if (poleCard == 3 && Typee != FieldType.Player_POLE_DEISTVIE || !HodCartaScr.RaschetCenCrd())
             {
                 return true;
             }
