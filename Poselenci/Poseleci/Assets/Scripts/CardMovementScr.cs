@@ -35,9 +35,9 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , 
           //вкл если надо разрешить перетягивание    //   || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_PROIZVODSTVO
                                                     //    || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_OSOBENOST
                                                     //    || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.Player_POLE_DEISTVIE
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST
-                                                        || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE
+                                                      //  || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO
+                                                      //  || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST
+                                                      //  || DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE
                                                       //  || DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.ROZIGRISH_POLE
                                                         )
                                                         && GameManager.IsPlayerTurn // проверка че ход

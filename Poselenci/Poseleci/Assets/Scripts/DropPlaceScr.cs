@@ -13,7 +13,8 @@ public enum FieldType
     Player_IMPERIA_PROIZVODSTVO,// поле производства империи
     Player_IMPERIA_DEISTVIE,// поле действия империи
     Player_IMPERIA_OSOBENOST,// поле империи особености игрока
-    ROZIGRISH_POLE // поле розыгрыша Обших карт
+    ROZIGRISH_POLE, // поле розыгрыша Обших карт
+    IMPERSKOE_POLE // поле розыгрыша Обших карт
 }
 
 public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
@@ -72,7 +73,8 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
                                         || Typee == FieldType.Player_POLE_DEISTVIE
                                         || Typee == FieldType.Player_IMPERIA_PROIZVODSTVO
                                         || Typee == FieldType.Player_IMPERIA_DEISTVIE
-                                        || Typee == FieldType.Player_IMPERIA_OSOBENOST)
+                                        || Typee == FieldType.IMPERSKOE_POLE
+                                        )
             {
                 return true;
             }
@@ -93,6 +95,18 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
                 return true;
             }
             else if (poleCard == 3 && Typee != FieldType.Player_POLE_DEISTVIE || !HodCartaScr.RaschetCenCrd())
+            {
+                return true;
+            }
+            else if (poleCard == 4 && Typee != FieldType.Player_IMPERIA_PROIZVODSTVO || !HodCartaScr.RaschetCenCrd())
+            {
+                return true;
+            }
+            else if (poleCard == 5 && Typee != FieldType.Player_IMPERIA_OSOBENOST || !HodCartaScr.RaschetCenCrd())
+            {
+                return true;
+            }
+            else if (poleCard == 6 && Typee != FieldType.Player_IMPERIA_DEISTVIE || !HodCartaScr.RaschetCenCrd())
             {
                 return true;
             }

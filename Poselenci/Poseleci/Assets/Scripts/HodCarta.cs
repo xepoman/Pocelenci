@@ -12,7 +12,10 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     bool boolDeystie = false;
     bool boolProizvodstvo = false;
     bool boolSvoystvo = false;
-    
+    bool boolDeystieImp = false;
+    bool boolProizvodstvoImp = false;
+    bool boolSvoystvoImp = false;
+
     void Awake()
     {
         GameManager = FindObjectOfType<GameManagerScr>();
@@ -39,6 +42,21 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             boolProizvodstvo = true;
             Debug.Log("proizvodstvo");
         }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE)
+        {
+            boolDeystieImp = true;
+            Debug.Log("DeystieImp");
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST)
+        {
+            boolSvoystvoImp = true;
+            Debug.Log("SvoystvoImp");
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO)
+        {
+            boolProizvodstvoImp = true;
+            Debug.Log("ProizvodstvoImp");
+        }
         else return;
         
     }
@@ -46,26 +64,90 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     {
         if (eventData.pointerDrag == null)
             return;
-       
-      //  card = eventData.pointerDrag.GetComponent<CardInfoScr>();
-      // когда отпускаем карту смотрим в каком поле
+        //карта которая была отпушена данным обьектом и присвоина с самой себя
+        CardMovementScr cardMovement = eventData.pointerDrag.GetComponent<CardMovementScr>();
+        //  card = eventData.pointerDrag.GetComponent<CardInfoScr>();
+        // когда отпускаем карту смотрим в каком поле
         DefaultParent = transform.parent;
         if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE && !boolDeystie)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerPoleDeystvieCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST && !boolSvoystvo)
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST && !boolSvoystvo)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerPoleSvoistvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO && !boolProizvodstvo)
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO && !boolProizvodstvo)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerPoleProizvodstvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-       
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE && !boolDeystieImp)
+        {
+            Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerImpPoleDeystvieCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
+            OtnimaemRes();
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST && !boolSvoystvoImp)
+        {
+            Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerImpPolevSvoistvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
+            OtnimaemRes();
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO && !boolProizvodstvoImp)
+        {
+            Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerImpPoleProizvodstvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
+            OtnimaemRes();
+        }
+
+    }
+    void PribovlenieRes(GameObject game) // функция расчета прибавления ресов при разрушении
+    {
+        
+        string[] split = game.GetComponent<CardInfoScr>().SelfCard.resursRazrushenia.Split('+'); // разложили обьект на буквы и проверили
+       // Debug.Log("split " + split[0]);
+        for (int i = 0; i < split.Length; i++)
+        {
+            switch (split[i])
+            {
+                case "Д":
+                    resCard.ObDerevo += 1;
+                    break;
+                case "К":
+                    resCard.ObKamen += 1;
+                    break;
+                case "Е":
+                    resCard.ObEda += 1;
+                    break;
+                case "Р":
+                    resCard.ObEmploe += 1;
+                    break;
+                case "З":
+                    resCard.ObGold += 1;
+                    break;
+                case "ПО":
+                    resCard.ObPO += 1;
+                    break;
+            }
+        }
     }
     void OtnimaemRes()// функция расчетов отнимания ресурсов
     {
@@ -86,11 +168,48 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                     case "Е":
                         resCard.ObEda -= 1;
                         break;
+                    case "П":
+                        if (GameManager.PlayerPoleDeystvieCard.Count != 0 || GameManager.PlayerPoleProizvodstvaCard.Count != 0
+                                                                  || GameManager.PlayerPoleSvoistvaCard.Count != 0)
+                        {
+                            DestroyCard();
+                           // Debug.Log("Добавить фуекцию выбора удаления карты обьект полн");
+                            break;
+                        }
+                        else
+                        {
+                            //Debug.Log("Добавить фуекцию выбора удаления карты обьект пуст");
+                            break;
+                        }
+                        
                 }
             }
         }
     }
-    public bool RaschetCenCrd()// расчет цены постройки карты
+    void DestroyCard() // добавить действия выбора что удалять
+    {
+        // card.GetComponent<CardManegerScr>().OnEndDrag(null); // если ошибка при удалении карты
+        //проверка если карта находится в списке то удаляем ее от туда 
+        if (GameManager.PlayerPoleDeystvieCard.Count != 0)
+        {
+            PribovlenieRes(GameManager.PlayerPoleDeystvieCard[0].gameObject);
+            GameManager.PlayerPoleDeystvieCard.Remove(card);
+            Destroy(GameManager.PlayerPoleDeystvieCard[0].gameObject);
+        }
+        else if (GameManager.PlayerPoleProizvodstvaCard.Count != 0)
+        {
+            PribovlenieRes(GameManager.PlayerPoleProizvodstvaCard[0].gameObject);
+            GameManager.PlayerPoleProizvodstvaCard.Remove(card);
+            Destroy(GameManager.PlayerPoleProizvodstvaCard[0].gameObject);
+        }
+        else if (GameManager.PlayerPoleSvoistvaCard.Count != 0)
+        {
+            PribovlenieRes(GameManager.PlayerPoleSvoistvaCard[0].gameObject);
+            GameManager.PlayerPoleSvoistvaCard.Remove(card);
+            Destroy(GameManager.PlayerPoleSvoistvaCard[0].gameObject);
+        }
+    }
+        public bool RaschetCenCrd()// расчет цены постройки карты
     {
         if (card.SelfCard.cenaPostroiki.Length <= 2 && card.SelfCard.cenaPostroiki.Length == 1) // проверка для одиночной цены "Д"
         {
@@ -191,6 +310,19 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                 {
                     Debug.Log("Нет оружия");
                     return false;
+                }
+            case "П":
+                {
+                    if (GameManager.PlayerPoleDeystvieCard.Count != 0 || GameManager.PlayerPoleProizvodstvaCard.Count != 0
+                                                                  || GameManager.PlayerPoleSvoistvaCard.Count != 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        //  Debug.Log("Добавить функцию выбора удаления производства и проверку если нет карт на поле");
+                        return false;
+                    }
                 }
             default: return true;
         }

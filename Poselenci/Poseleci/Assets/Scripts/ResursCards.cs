@@ -81,35 +81,6 @@ public class ResursCards : MonoBehaviour
         ObEmploe = 5;
         ObOrujee = 1;
     }
-
-   public void StroykaCard()
-    {
-        for (int i = 0; i < GameManager.PlayerHandCard.Count; i++)
-        {
-            Debug.Log(GameManager.PlayerHandCard[i].SelfCard.cenaPostroiki.ToString());
-            if(GameManager.PlayerHandCard[i].SelfCard.cenaPostroiki.Length > 1)
-            {
-               string[] split = GameManager.PlayerHandCard[i].SelfCard.cenaPostroiki.Split('+');
-                for(int t = 0; t<split.Length; t++)
-                {
-                    switch (split[t])
-                    {
-                        case  "Д":
-                            ObDerevo -= 1;
-                            break;
-                        case "К":
-                            ObKamen -= 1;
-                            break;
-                        case "Е":
-                            ObEda -= 1;
-                            break;
-                    }
-                }
-            }
-        }
-    }
-
-   
 }
 
 

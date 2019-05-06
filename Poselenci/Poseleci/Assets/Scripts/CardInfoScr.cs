@@ -41,15 +41,21 @@ public class CardInfoScr : MonoBehaviour
     public Card SelfCard;
     public Image Pole;
     public GameManagerScr GameManager;
-    
+    public GameObject HideObjIMP;
 
     void Awake()
     {
         GameManager = FindObjectOfType<GameManagerScr>();
     }
+    public void HideCardInfo(Card card)
+    {
+        SelfCard = card;
+        HideObjIMP.SetActive(true);
+    }
     public void ShowCardInfo(Card card)
     {
         SelfCard = card;
+        HideObjIMP.SetActive(false);
         Pole.sprite = card.Logo;
         Pole.preserveAspect = true;
     }

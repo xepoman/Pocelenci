@@ -8,10 +8,12 @@ using TMPro;
 public class Game
 {
     public List<Card> ObDeckCard;
+    public List<Card> ImpVarDeckCard;
 
     public Game()
     {
         ObDeckCard = ObGiveDeckCard(); //Колода общих кард
+        ImpVarDeckCard = ImpVarGiveDeckCard(); // колода имперских кард
     }
     
     List<Card> ObGiveDeckCard()
@@ -26,24 +28,43 @@ public class Game
         }
         return CardManager.AllCards;
     }
+    List<Card> ImpVarGiveDeckCard()
+    {
+        //перетусовка карт колоды из всех кард по принцепу  алгоритм Кнута-Фишера-Йейтса
+        for (int i = CardManager.AllCardsImperiaVarvar.Count - 1; i > 0; i--)
+        {
+            int n = Random.Range(0, i + 1);
+            var tmp = CardManager.AllCardsImperiaVarvar[n];
+            CardManager.AllCardsImperiaVarvar[n] = CardManager.AllCardsImperiaVarvar[i];
+            CardManager.AllCardsImperiaVarvar[i] = tmp;
+        }
+        return CardManager.AllCardsImperiaVarvar;
+    }
 }
 
 
 public class GameManagerScr : MonoBehaviour
 {
     public Game CurrentGame;
-    public Transform EnemyHand, PlayerHand, PerezagruzkaHand; // руки противника и игрока и поле перезагрузки 
+    public Transform EnemyHand, PlayerHand, PerezagruzkaHand, ImpVarFiel ; // руки противника и игрока и поле перезагрузки и  имперская
     public GameObject ObCardPref; // префаб общих карт
+    public GameObject ImpVarCardPref; // префаб Имперских карт Варвары карт
     int Turn, TurnTime = 30;
     public TextMeshProUGUI TurnTimeTxt; // текстовый счетчик
     public Button EndTurBtn; // кнопка конца хода;
     public TextMeshProUGUI RaundTxt;
-    
+
 
     public List<CardInfoScr> PlayerHandCard = new List<CardInfoScr>(),// карты на руке игрока
-                            // PlayerFieldCard = new List<CardInfoScr>(),// карты на поле игрока
+                             ImpVarFieldCard = new List<CardInfoScr>(),// карты на поле имперской колоды
                              EnemyHandCard = new List<CardInfoScr>(),// карты на руке врага
-                             PerezagruzkaFielCard = new List<CardInfoScr>();// карты на поле перезагрузки
+                            PerezagruzkaFielCard = new List<CardInfoScr>(),// карты на поле перезагрузки
+                            PlayerPoleDeystvieCard = new List<CardInfoScr>(), // карты на поле действия
+                            PlayerPoleProizvodstvaCard = new List<CardInfoScr>(), // карты на поле действия
+                            PlayerPoleSvoistvaCard = new List<CardInfoScr>(), // карты на поле действия
+                            PlayerImpPoleDeystvieCard = new List<CardInfoScr>(), // карты на поле империи действия
+                            PlayerImpPoleProizvodstvaCard = new List<CardInfoScr>(), // карты на поле империи производства
+                            PlayerImpPolevSvoistvaCard = new List<CardInfoScr>(); // карты на поле империи свойства
      private int numberRaund;                       
 
     public bool IsPlayerTurn
@@ -60,11 +81,40 @@ public class GameManagerScr : MonoBehaviour
         numberRaund = 0;
         CurrentGame = new Game();
 
-        // GiveHandCards(CurrentGame.EnemyDeck, EnemyHand); // выдача карт противнику
+        
+        GiveImperHandCards(CurrentGame.ImpVarDeckCard, ImpVarFiel, false); // выдача имерских карт игроку при начале игры
+        GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
+        GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
+        GiveHandCards(CurrentGame.ObDeckCard, PlayerHand, 2);// выдача карт игроку
         GiveHandCards(CurrentGame.ObDeckCard, PlayerHand , 2);// выдача карт игроку
         GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
 
         StartCoroutine(TurnFunc());
+    }
+    void GiveImperHandCards(List<Card> deck, Transform hand, bool inicil) // принемает список карт руки в трансформе руки
+    {
+        //Если в колоде нет карт выходим из функции
+        if (deck.Count == 0)
+            return;
+        //берем карту из колоды
+        Card card = deck[0];
+        //создаем копию карты префаба
+        GameObject cardGO = Instantiate(ImpVarCardPref, hand, false);
+        if (inicil)
+        {
+            // вызов функции показа карты
+            cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card);
+            PlayerHandCard.Add(cardGO.GetComponent<CardInfoScr>());
+        }
+        else
+        {
+            // вызов функции закрытой карты
+            cardGO.GetComponent<CardInfoScr>().HideCardInfo(card);
+            ImpVarFieldCard.Add(cardGO.GetComponent<CardInfoScr>());
+        }
+        //удалили карту  из колекции
+        deck.RemoveAt(0);
+
     }
 
     void GiveHandCards(List<Card> deck, Transform hand, int inicil) // принемает список карт руки в трансформе руки
@@ -143,6 +193,7 @@ public class GameManagerScr : MonoBehaviour
         if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count >= 4)
         {
             GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
+            GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true);
             return;
         }
         if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count < 4)
