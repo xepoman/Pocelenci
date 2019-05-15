@@ -86,10 +86,13 @@ public class GameManagerScr : MonoBehaviour
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
         GiveHandCards(CurrentGame.ObDeckCard, PlayerHand, 2);// выдача карт игроку
-        GiveHandCards(CurrentGame.ObDeckCard, PlayerHand , 2);// выдача карт игроку
         GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
 
         StartCoroutine(TurnFunc());
+    }
+    private void Update()
+    {
+        RaundTxt.text = "Raund " + numberRaund.ToString();
     }
     void GiveImperHandCards(List<Card> deck, Transform hand, bool inicil) // принемает список карт руки в трансформе руки
     {
@@ -129,7 +132,6 @@ public class GameManagerScr : MonoBehaviour
         }
         if (inicil == 4)
         {
-            RaundTxt.text = "Raund " + numberRaund.ToString();
             int i = 0;
             while (i++ < 4)
             {
@@ -171,6 +173,7 @@ public class GameManagerScr : MonoBehaviour
         {
             while(TurnTime-- >0)
             {
+               
                 // усли ход игрока  отнимаем время от шетчика и замараживаем время на 1 сек
                 TurnTimeTxt.text = TurnTime.ToString();
                 yield return new WaitForSeconds(1);
@@ -194,6 +197,14 @@ public class GameManagerScr : MonoBehaviour
         {
             GiveHandCards(CurrentGame.ObDeckCard, PerezagruzkaHand, 4);// выдоча карт на поле выбора карт
             GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true);
+            while (EnemyHandCard.Count > 0) // цикл удаления карт  в конце раунда с руки врага и добавление очков
+            {
+                Destroy(EnemyHandCard[EnemyHandCard.Count - 1].gameObject);
+                EnemyHandCard.Remove(EnemyHandCard[EnemyHandCard.Count - 1]);
+            }
+            numberRaund++;
+            GetComponent<ResursCards>().PlanshetVarvar(); // добовление ресурсов с планшета
+            GetComponent<ResursCards>().RaschetResovEndRaund(); // добавление ресурсов в конце раунда с карт
             return;
         }
         if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count < 4)
@@ -212,9 +223,6 @@ public class GameManagerScr : MonoBehaviour
             PlayerHandCard.Add(PerezagruzkaFielCard[0]);
             PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[0]);
         }
-        
-        if (PerezagruzkaFielCard.Count == 0)
-                    this.numberRaund++;
     }
     
     public void ChangeTurn()

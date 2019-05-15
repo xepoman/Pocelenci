@@ -47,12 +47,12 @@ public class CardInfoScr : MonoBehaviour
     {
         GameManager = FindObjectOfType<GameManagerScr>();
     }
-    public void HideCardInfo(Card card)
+    public void HideCardInfo(Card card)//закртые карты
     {
         SelfCard = card;
         HideObjIMP.SetActive(true);
     }
-    public void ShowCardInfo(Card card)
+    public void ShowCardInfo(Card card) // открытые карты
     {
         SelfCard = card;
         HideObjIMP.SetActive(false);

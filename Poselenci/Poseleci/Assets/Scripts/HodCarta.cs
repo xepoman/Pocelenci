@@ -146,6 +146,9 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                 case "ПО":
                     resCard.ObPO += 1;
                     break;
+                case "КР":
+                    Debug.Log("выдача карт");
+                    break;
             }
         }
     }
