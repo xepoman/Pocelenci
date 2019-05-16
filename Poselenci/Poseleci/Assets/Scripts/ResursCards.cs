@@ -84,11 +84,11 @@ public class ResursCards : MonoBehaviour
     {
         ObEmploe = 5;
         ObOrujee = 1;
-        ObDerevo = 10;
-        ObKamen = 10;
-        ObGold = 10;
-        ObEda =10;
-        ObPO = 10;
+        ObDerevo = 0;
+        ObKamen = 0;
+        ObGold = 0;
+        ObEda =0;
+        ObPO = 0;
     }
     public void RaschetResovEndRaund()
     {

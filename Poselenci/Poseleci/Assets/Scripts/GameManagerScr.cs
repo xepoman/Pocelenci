@@ -65,7 +65,8 @@ public class GameManagerScr : MonoBehaviour
                             PlayerImpPoleDeystvieCard = new List<CardInfoScr>(), // карты на поле империи действия
                             PlayerImpPoleProizvodstvaCard = new List<CardInfoScr>(), // карты на поле империи производства
                             PlayerImpPolevSvoistvaCard = new List<CardInfoScr>(); // карты на поле империи свойства
-     private int numberRaund;                       
+     private int numberRaund;
+     public bool boolRaund;
 
     public bool IsPlayerTurn
     {
@@ -80,7 +81,7 @@ public class GameManagerScr : MonoBehaviour
         Turn = 0;
         numberRaund = 0;
         CurrentGame = new Game();
-
+        boolRaund = false;
         
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, ImpVarFiel, false); // выдача имерских карт игроку при начале игры
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
@@ -171,7 +172,8 @@ public class GameManagerScr : MonoBehaviour
         TurnTimeTxt.text = TurnTime.ToString();
         if(IsPlayerTurn)
         {
-            while(TurnTime-- >0)
+            boolRaund = true;
+            while (TurnTime-- >0)
             {
                
                 // усли ход игрока  отнимаем время от шетчика и замараживаем время на 1 сек
@@ -203,13 +205,18 @@ public class GameManagerScr : MonoBehaviour
                 EnemyHandCard.Remove(EnemyHandCard[EnemyHandCard.Count - 1]);
             }
             numberRaund++;
+           
             GetComponent<ResursCards>().PlanshetVarvar(); // добовление ресурсов с планшета
             GetComponent<ResursCards>().RaschetResovEndRaund(); // добавление ресурсов в конце раунда с карт
+            if (GetComponent<SimplPlanshetButton>().ProverkaSvoistvPlansheta)
+            {
+                GetComponent<SimplPlanshetButton>().SvoistavPlanshetBtn();// сбросили работников по свойству планшета
+            }
             return;
         }
         if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count < 4)
             return;
-
+        boolRaund = false;
         int count = PerezagruzkaFielCard.Count == 1 ? 0: Random.Range(1, PerezagruzkaFielCard.Count);
         
             PerezagruzkaFielCard[count].ShowCardInfo(PerezagruzkaFielCard[count].SelfCard); // показали карту
