@@ -119,6 +119,56 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         }
 
     }
+    void BonusStroitelstav()// бонус строительства
+    {
+        Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
+        switch (card.SelfCard.bonusStroiki)
+        {
+            case "Д":
+                resCard.ObDerevo += 1;
+                break;
+            case "Р":
+                resCard.ObEmploe += 1;
+                break;
+            case "К":
+                resCard.ObKamen += 1;
+                break;
+            case "E":
+                resCard.ObEda += 1;
+                break;
+            case "ПО+ПО+ПО+ПО":
+                resCard.ObPO += 4;
+                break;
+            case "":
+                break;
+            case "ПО/blak П имп":
+                // дает ПО за каждую черную постройку импреии и разово дает карту
+                break;
+            case "ПО+КР/k":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                // дает ПО за каждую коричневую постройку импреии и разово дает карту
+                break;
+            case "ПО+КР/r":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                // дает ПО за каждую розовую постройку импреии и разово дает карту
+                break;
+            case "КР":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                break;
+            case "ПО+КР/red":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                // дает ПО за каждую красную постройку импреии и разово дает карту
+                break;
+            case "ПО+КР/j":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                // дает ПО за каждую жолтую постройку импреии и разово дает карту
+                break;
+            case "ПО+КР/s":
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                // дает ПО за каждую серую постройку импреии и разово дает карту
+                break;
+        }
+    }
     void PribovlenieRes(GameObject game) // функция расчета прибавления ресов при разрушении
     {
         
@@ -146,7 +196,11 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                 case "ПО":
                     resCard.ObPO += 1;
                     break;
+                case "":
+                    break;
                 case "КР":
+                    Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
+                    GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
                     Debug.Log("выдача карт");
                     break;
             }
@@ -154,9 +208,9 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     }
     void OtnimaemRes()// функция расчетов отнимания ресурсов
     {
-
         if (card.SelfCard.cenaPostroiki.Length >= 1 && RaschetCenCrd()) // проверка  цены 
         {
+            BonusStroitelstav();
             string[] split = card.SelfCard.cenaPostroiki.Split('+');
             for (int i = 0; i < split.Length; i++)
             {
@@ -170,6 +224,8 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                         break;
                     case "Е":
                         resCard.ObEda -= 1;
+                        break;
+                    case "":
                         break;
                     case "П":
                         if (GameManager.PlayerPoleDeystvieCard.Count != 0 || GameManager.PlayerPoleProizvodstvaCard.Count != 0
@@ -212,7 +268,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             Destroy(GameManager.PlayerPoleSvoistvaCard[0].gameObject);
         }
     }
-        public bool RaschetCenCrd()// расчет цены постройки карты
+    public bool RaschetCenCrd()// расчет цены постройки карты
     {
         if (card.SelfCard.cenaPostroiki.Length <= 2 && card.SelfCard.cenaPostroiki.Length == 1) // проверка для одиночной цены "Д"
         {
@@ -234,6 +290,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         }
         else return true;
     }
+    // ошибка возникает когда например 2 дерева а ресурс 1 он уходит в -1 !!!!!!!!!!!
     bool SwitchCard(string s) // функция сравнения значений в строке
     {
         switch (s)
@@ -314,7 +371,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                     Debug.Log("Нет оружия");
                     return false;
                 }
-            case "П":
+            case "П": 
                 {
                     if (GameManager.PlayerPoleDeystvieCard.Count != 0 || GameManager.PlayerPoleProizvodstvaCard.Count != 0
                                                                   || GameManager.PlayerPoleSvoistvaCard.Count != 0)
