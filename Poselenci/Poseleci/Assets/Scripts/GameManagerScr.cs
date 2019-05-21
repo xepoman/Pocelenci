@@ -95,7 +95,7 @@ public class GameManagerScr : MonoBehaviour
     {
         RaundTxt.text = "Raund " + numberRaund.ToString();
     }
-    void GiveImperHandCards(List<Card> deck, Transform hand, bool inicil) // принемает список карт руки в трансформе руки
+    public void GiveImperHandCards(List<Card> deck, Transform hand, bool inicil) // принемает список карт руки в трансформе руки
     {
         //Если в колоде нет карт выходим из функции
         if (deck.Count == 0)
@@ -121,8 +121,12 @@ public class GameManagerScr : MonoBehaviour
 
     }
 
-    void GiveHandCards(List<Card> deck, Transform hand, int inicil) // принемает список карт руки в трансформе руки
+    public void GiveHandCards(List<Card> deck, Transform hand, int inicil) // принемает список карт руки в трансформе руки
     {
+        if(inicil == 1)
+        {
+            GiveCardToHand(deck, hand);
+        }
         if (inicil == 2)
         {
             int i = 0;
@@ -168,7 +172,7 @@ public class GameManagerScr : MonoBehaviour
     }
     IEnumerator TurnFunc()
     {
-        TurnTime = 30;
+        TurnTime = 300;
         TurnTimeTxt.text = TurnTime.ToString();
         if(IsPlayerTurn)
         {
@@ -185,7 +189,7 @@ public class GameManagerScr : MonoBehaviour
         {
             Raund();
             // усли ход пративника ждем до 27 сек и пропускает ход
-            while (TurnTime-- > 29)
+            while (TurnTime-- > 299)
             {
                 TurnTimeTxt.text = TurnTime.ToString();
                 yield return new WaitForSeconds(1);

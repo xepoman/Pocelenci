@@ -88,9 +88,10 @@ public class ResursCards : MonoBehaviour
         ObKamen = 0;
         ObGold = 0;
         ObEda =0;
-        ObPO = 0;
+       
     }
-    public void RaschetResovEndRaund()
+    
+    public void RaschetResovEndRaund() // функция расчета  ресурсов кард в конце раунда
     {
         if (GameManager.PlayerImpPoleDeystvieCard.Count == 0 && GameManager.PlayerImpPoleProizvodstvaCard.Count == 0
                                                             && GameManager.PlayerImpPolevSvoistvaCard.Count == 0
@@ -137,6 +138,8 @@ public class ResursCards : MonoBehaviour
         Debug.Log(str);
         switch (str)
         {
+            case "":
+                break;
             case "Д":
                 ObDerevo += 1;
                 break;
@@ -156,7 +159,9 @@ public class ResursCards : MonoBehaviour
                 ObPO += 1;
                 break;
             case "КР":
-                Debug.Log("Производит карточку");
+                Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
+                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+             //   Debug.Log("Производит карточку");
                 break;
             case "З/jП<=3":
                 RaschetResZaPostr("j");
@@ -185,7 +190,7 @@ public class ResursCards : MonoBehaviour
            
         }
     }
-    int RaschetResZaPostr(string color)
+    int RaschetResZaPostr(string color) // функция ограничения ресурсов по проверки по цвету
     {
         int kolIspolzovaniaCard = 0;
         for (int i = 0; i < GameManager.PlayerImpPoleDeystvieCard.Count; i++)

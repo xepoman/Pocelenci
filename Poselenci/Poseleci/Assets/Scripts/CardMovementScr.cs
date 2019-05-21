@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , IEndDragHandler
+public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , IEndDragHandler , IPointerClickHandler
 {
     Camera MainCamera;
     Vector2 offset; // значение отступа от центра карты до края карты
     public Transform DefaultParent ,DefaultTempCardParent;
     GameObject TempCardGO;
+    public GameObject PoinClickGO; // обьект для передачи карт при клики на наих
     public bool IsDraggable; // показывает можно переносить карту в это поле
     public GameManagerScr GameManager;
+    private ZoomCard ZoomCard;
 
     void Awake()
     {
         MainCamera = Camera.allCameras[0]; // если на сцене всего одна камера 
         TempCardGO = GameObject.Find("TempCardGO");
         GameManager = FindObjectOfType<GameManagerScr>();
+        ZoomCard = FindObjectOfType<ZoomCard>();
     }
     public void OnBeginDrag(PointerEventData eventData) // выполняется единожды при перетягивании обьекта
     {
@@ -111,5 +114,14 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler , 
         }
         // устанавлеваем временный индек этой карте
         TempCardGO.transform.SetSiblingIndex(newIndex);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag == null)
+            return;
+        PoinClickGO = eventData.pointerDrag;
+        ZoomCard.ImageZoomCard(PoinClickGO.GetComponent<CardInfoScr>().Pole);// при нажатии на карту передаем в функцию увелечения карты
+        ZoomCard.DeystvieCardSchetRes(PoinClickGO, transform.parent.GetComponent<DropPlaceScr>().Typee);// передаю обьект принажимании на карту
     }
 }

@@ -864,6 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultParent: {fileID: 0}
   DefaultTempCardParent: {fileID: 0}
+  PoinClickGO: {fileID: 0}
   IsDraggable: 0
   GameManager: {fileID: 0}
 --- !u!114 &3422245746616550576

@@ -126,7 +126,7 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
         // получем из обьект который тянем к нему установим текуший трансформ
         // таким образом радителем временой карты станет данное поле
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();
-        if(card)
+        if (card)
         {
             card.DefaultTempCardParent = transform;
         }
