@@ -14,6 +14,7 @@ public class SimplPlanshetButton : MonoBehaviour
     public Sprite otklBtnSvoystvaPlanshet;
     public Image imageBtnSvoiystvaPlansheta;
     public Image imageBtnDeystviePlansheta;
+   
     int tempObEmploe;
     public bool ProverkaSvoistvPlansheta = false;
     private void Start()
@@ -108,23 +109,33 @@ public class SimplPlanshetButton : MonoBehaviour
     }
     public void ViborImpBtn() // кнопка при выборе карт добавление ее из колоды
     {
-        if (resCard.ObEmploe >= 2)
+        if (!GetComponent<ZoomCard>().flagVibrCard)
         {
             resCard.ObEmploe -= 2;
-            Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
-            GetComponent<GameManagerScr>().GiveImperHandCards(CurrentGame.ImpVarDeckCard, GetComponent<GameManagerScr>().PlayerHand, true);
-            btnViborGO.SetActive(false);
         }
+        else
+        {
+            resCard.ObEmploe -= 1;
+            GetComponent<ZoomCard>().flagVibrCard = true;
+        }
+        Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
+        GetComponent<GameManagerScr>().GiveImperHandCards(CurrentGame.ImpVarDeckCard, GetComponent<GameManagerScr>().PlayerHand, true);
+        btnViborGO.SetActive(false);
     }
     public void ViborObBtn()// кнопка при выборе карт добавление ее из колоды
     {
-        if (resCard.ObEmploe >= 2)
+        if (!GetComponent<ZoomCard>().flagVibrCard)
         {
             resCard.ObEmploe -= 2;
+        }
+        else
+        {
+            resCard.ObEmploe -= 1;
+            GetComponent<ZoomCard>().flagVibrCard = true;
+        }
             Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
             GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
             btnViborGO.SetActive(false);
-        }
     }
     public void ObmenResEdaBtn()
     {

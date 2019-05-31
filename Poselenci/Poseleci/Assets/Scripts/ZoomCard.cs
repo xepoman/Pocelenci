@@ -9,6 +9,7 @@ public class ZoomCard : MonoBehaviour
     public GameObject btnDeystvieGO;  
     private GameObject tempCardGO;// временый обьект для передачи
     ResursCards resursCards;
+    public bool flagVibrCard = false;
     private void Start()
     {
         btnDeystvieGO.SetActive(false); // отклюячение кнопки если это не карта действия
@@ -52,6 +53,13 @@ public class ZoomCard : MonoBehaviour
                     resursCards.ObDerevo += 2;
                 }
                     return;
+            case "Р=К+К":
+                if (resursCards.ObEmploe >= 1)
+                {
+                    resursCards.ObEmploe -= 1;
+                    resursCards.ObKamen += 2;
+                }
+                return;
             case "Р-С=ПО+ПО":
                 if (resursCards.ObEmploe >= 1)
                 {
@@ -186,7 +194,8 @@ public class ZoomCard : MonoBehaviour
             case "Р=КР":
                 if (resursCards.ObEmploe >= 1 )
                 {
-                    resursCards.ObEmploe -= 1;
+                    GetComponent<SimplPlanshetButton>().btnViborGO.SetActive(true);
+                    flagVibrCard = true;
                     // добавить карту 
                 }
                 return;

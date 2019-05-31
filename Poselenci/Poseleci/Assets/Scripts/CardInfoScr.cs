@@ -40,13 +40,13 @@ public class CardInfoScr : MonoBehaviour
     // public CardController CC;
     public Card SelfCard;
     public Image Pole;
-    public GameManagerScr GameManager;
+  //  public GameManagerScr GameManager;
     public GameObject HideObjIMP;
 
-    void Awake()
+  /*  void Awake()
     {
         GameManager = FindObjectOfType<GameManagerScr>();
-    }
+    }*/
     public void HideCardInfo(Card card)//закртые карты
     {
         SelfCard = card;

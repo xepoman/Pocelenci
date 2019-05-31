@@ -78,6 +78,8 @@ public static class CardManager
     public static List<Card> AllCards = new List<Card>();
     // будут хранится все карты имперские (варвары)
     public static List<Card> AllCardsImperiaVarvar = new List<Card>();
+    //будут хранится карты атаки
+    public static List<Card> AllAttackCards = new List<Card>();
 }
 public class CardManegerScr : MonoBehaviour
 {
@@ -194,6 +196,25 @@ public class CardManegerScr : MonoBehaviour
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpKarer", "Sprites/CardsVarvar/VarImpKarer", "К+П", "", "blak", 4, "О+К", "", 0, 2));
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpBaraholka", "Sprites/CardsVarvar/VarImpBaraholka", "Д+П", "", "j", 6, "Люб 2 рес = ПО+ПО", "", 2, 2)); // муть
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpBoycovKlub", "Sprites/CardsVarvar/VarImpBoycovKlub", "Д+К+П", "", "blak", 6, "Р-Р=О+О", "", 0, 2));
+
+
+        // карты атаки
+        CardManager.AllAttackCards.Add(new Card("AttackDerevo", "Sprites/CardAttack/AttackDerevo", "0", "Д", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackDerevo", "Sprites/CardAttack/AttackDerevo", "0", "Д", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackDerevo", "Sprites/CardAttack/AttackDerevo", "0", "Д", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackGold", "Sprites/CardAttack/AttackGold", "0", "З", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackGold", "Sprites/CardAttack/AttackGold", "0", "З", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackGold", "Sprites/CardAttack/AttackGold", "0", "З", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackCard", "Sprites/CardAttack/AttackCard", "0", "КР", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackCard", "Sprites/CardAttack/AttackCard", "0", "КР", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackCard", "Sprites/CardAttack/AttackCard", "0", "КР", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackPo", "Sprites/CardAttack/AttackPo", "0", "ПО", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackPo", "Sprites/CardAttack/AttackPo", "0", "ПО", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackKamen", "Sprites/CardAttack/AttackKamen", "0", "К", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackKamen", "Sprites/CardAttack/AttackKamen", "0", "К", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackEmploe", "Sprites/CardAttack/AttackEmploe", "0", "Р", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackEmploe", "Sprites/CardAttack/AttackEmploe", "0", "Р", "0", 0, "0", "0", 0, 0));
+        CardManager.AllAttackCards.Add(new Card("AttackEda", "Sprites/CardAttack/AttackEda", "0", "Е", "0", 0, "0", "0", 0, 0));
     }
     
 }

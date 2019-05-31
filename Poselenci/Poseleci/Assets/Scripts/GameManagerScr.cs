@@ -9,13 +9,26 @@ public class Game
 {
     public List<Card> ObDeckCard;
     public List<Card> ImpVarDeckCard;
+    public List<Card> AttackDeckCard;
 
     public Game()
     {
         ObDeckCard = ObGiveDeckCard(); //Колода общих кард
         ImpVarDeckCard = ImpVarGiveDeckCard(); // колода имперских кард
+        AttackDeckCard = AttackGiveDeckCard(); // колода атаки 
     }
-    
+    List<Card> AttackGiveDeckCard()
+    {
+        //перетусовка карт колоды из всех кард по принцепу  алгоритм Кнута-Фишера-Йейтса
+        for (int i = CardManager.AllAttackCards.Count - 1; i > 0; i--)
+        {
+            int n = Random.Range(0, i + 1);
+            var tmp = CardManager.AllAttackCards[n];
+            CardManager.AllAttackCards[n] = CardManager.AllAttackCards[i];
+            CardManager.AllAttackCards[i] = tmp;
+        }
+        return CardManager.AllAttackCards;
+    }
     List<Card> ObGiveDeckCard()
     {
         //перетусовка карт колоды из всех кард по принцепу  алгоритм Кнута-Фишера-Йейтса
@@ -46,9 +59,11 @@ public class Game
 public class GameManagerScr : MonoBehaviour
 {
     public Game CurrentGame;
+    public Transform AttackEnemyPole;// поле атаки
     public Transform EnemyHand, PlayerHand, PerezagruzkaHand, ImpVarFiel ; // руки противника и игрока и поле перезагрузки и  имперская
     public GameObject ObCardPref; // префаб общих карт
     public GameObject ImpVarCardPref; // префаб Имперских карт Варвары карт
+    public GameObject AttackCardPref; // префаб карты атаки
     int Turn, TurnTime = 30;
     public TextMeshProUGUI TurnTimeTxt; // текстовый счетчик
     public Button EndTurBtn; // кнопка конца хода;
@@ -64,7 +79,8 @@ public class GameManagerScr : MonoBehaviour
                             PlayerPoleSvoistvaCard = new List<CardInfoScr>(), // карты на поле действия
                             PlayerImpPoleDeystvieCard = new List<CardInfoScr>(), // карты на поле империи действия
                             PlayerImpPoleProizvodstvaCard = new List<CardInfoScr>(), // карты на поле империи производства
-                            PlayerImpPolevSvoistvaCard = new List<CardInfoScr>(); // карты на поле империи свойства
+                            PlayerImpPolevSvoistvaCard = new List<CardInfoScr>(), // карты на поле империи свойства
+                            AttackCardPole = new List<CardInfoScr>(); // карты на поле
      private int numberRaund;
      public bool boolRaund;
 
@@ -82,7 +98,7 @@ public class GameManagerScr : MonoBehaviour
         numberRaund = 0;
         CurrentGame = new Game();
         boolRaund = false;
-        
+        GiveAttackTo(CurrentGame.AttackDeckCard, AttackEnemyPole);// начальная карта атаки
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, ImpVarFiel, false); // выдача имерских карт игроку при начале игры
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
         GiveImperHandCards(CurrentGame.ImpVarDeckCard, PlayerHand, true); // выдача имерских карт игроку при начале игры
@@ -143,6 +159,18 @@ public class GameManagerScr : MonoBehaviour
                 GiveCardToHand(deck, hand);
             }
         }
+    }
+    void GiveAttackTo(List<Card> deck, Transform AttackEnemyPole) // методы создания карты атаки
+    {
+        if (deck.Count == 0)
+            return;
+        //берем карту из колоды
+        Card card = deck[0];
+        //создаем копию карты префаба
+        GameObject cardGO = Instantiate(AttackCardPref, AttackEnemyPole, false);
+        cardGO.GetComponent<CardInfoScr>().ShowCardInfo(card);
+        AttackCardPole.Add(cardGO.GetComponent<CardInfoScr>());
+        deck.RemoveAt(0);
     }
     void GiveCardToHand(List<Card> deck, Transform hand) // функция выдачи стартовых карт
     {
@@ -209,7 +237,9 @@ public class GameManagerScr : MonoBehaviour
                 EnemyHandCard.Remove(EnemyHandCard[EnemyHandCard.Count - 1]);
             }
             numberRaund++;
-           
+            GiveAttackTo(CurrentGame.AttackDeckCard, AttackEnemyPole);// вызов метода для создания карт атаки в конце раунда
+            GiveAttackTo(CurrentGame.AttackDeckCard, AttackEnemyPole);
+            GetComponent<AttackCard>().RashetDestroyCard();// вызов метода расчета удаления карт при атаке
             GetComponent<ResursCards>().PlanshetVarvar(); // добовление ресурсов с планшета
             GetComponent<ResursCards>().RaschetResovEndRaund(); // добавление ресурсов в конце раунда с карт
             if (GetComponent<SimplPlanshetButton>().ProverkaSvoistvPlansheta)
@@ -231,7 +261,7 @@ public class GameManagerScr : MonoBehaviour
         if (PerezagruzkaFielCard.Count % 2 != 0)
         {
             PerezagruzkaFielCard[0].transform.SetParent(PlayerHand);
-            PlayerHandCard.Add(PerezagruzkaFielCard[0]);
+          //  PlayerHandCard.Add(PerezagruzkaFielCard[0]);
             PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[0]);
         }
     }

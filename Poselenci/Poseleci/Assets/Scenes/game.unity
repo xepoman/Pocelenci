@@ -1062,6 +1062,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308373426}
   m_CullTransparentMesh: 0
+--- !u!1 &314286845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314286846}
+  - component: {fileID: 314286849}
+  - component: {fileID: 314286848}
+  - component: {fileID: 314286847}
+  m_Layer: 5
+  m_Name: EnemyAttak
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &314286846
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314286845}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 463454503}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 649.07, y: -290.7}
+  m_SizeDelta: {x: 239.26001, y: 251.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &314286847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314286845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 5
+    m_Bottom: 1
+  m_ChildAlignment: 5
+  m_Spacing: 2
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+--- !u!114 &314286848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314286845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &314286849
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314286845}
+  m_CullTransparentMesh: 0
 --- !u!1 &348229355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1509,7 @@ RectTransform:
   - {fileID: 1857992347}
   - {fileID: 1269780977}
   - {fileID: 28307409}
+  - {fileID: 314286846}
   m_Father: {fileID: 605051954}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1786,6 +1885,8 @@ GameObject:
   - component: {fileID: 519420034}
   - component: {fileID: 519420036}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420037}
+  - component: {fileID: 519420038}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1881,6 +1982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857e90998c59a464d87c4667a0d3f014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackEnemyPole: {fileID: 314286846}
   EnemyHand: {fileID: 1640870252}
   PlayerHand: {fileID: 944972854}
   PerezagruzkaHand: {fileID: 1649626913}
@@ -1888,6 +1990,8 @@ MonoBehaviour:
   ObCardPref: {fileID: 5894138781391367758, guid: 942bf3f47fdf2ec4f86c742d628c2079,
     type: 3}
   ImpVarCardPref: {fileID: 5894138781391367758, guid: 0bf493020f5f0f240a268bba82266e96,
+    type: 3}
+  AttackCardPref: {fileID: 7326194575186788335, guid: 70b130fdaf0df9d49be7eb21010e3ba9,
     type: 3}
   TurnTimeTxt: {fileID: 1365013536}
   EndTurBtn: {fileID: 1531675113}
@@ -1902,6 +2006,7 @@ MonoBehaviour:
   PlayerImpPoleDeystvieCard: []
   PlayerImpPoleProizvodstvaCard: []
   PlayerImpPolevSvoistvaCard: []
+  AttackCardPole: []
   boolRaund: 0
 --- !u!114 &519420034
 MonoBehaviour:
@@ -1961,6 +2066,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91c52c30b81a291499cbe02a7df0e4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &519420037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e11c72873b3e0408a5544e7658fb2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 1269780979}
+  btnDeystvieGO: {fileID: 1098701365}
+  flagVibrCard: 0
+--- !u!114 &519420038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed553545e6ad8341aeda473350befdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &530114936
@@ -4196,7 +4328,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269780978}
+      - m_Target: {fileID: 519420037}
         m_MethodName: DeystviaChetaResBtn
         m_Mode: 1
         m_Arguments:
@@ -4257,7 +4389,6 @@ GameObject:
   - component: {fileID: 1269780977}
   - component: {fileID: 1269780980}
   - component: {fileID: 1269780979}
-  - component: {fileID: 1269780978}
   m_Layer: 5
   m_Name: ZoomCard
   m_TagString: Untagged
@@ -4285,20 +4416,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1, y: 63.2}
   m_SizeDelta: {x: 332.4, y: 503}
   m_Pivot: {x: 1.0000001, y: 0.5}
---- !u!114 &1269780978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269780976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e11c72873b3e0408a5544e7658fb2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 1269780979}
-  btnDeystvieGO: {fileID: 1098701365}
 --- !u!114 &1269780979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6437,7 +6554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -466, y: 89}
+  m_AnchoredPosition: {x: -556, y: 89}
   m_SizeDelta: {x: 158.2, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090866834

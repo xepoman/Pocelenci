@@ -121,7 +121,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     }
     void BonusStroitelstav()// бонус строительства
     {
-        Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
+        Game CurrentGame = GameManager.CurrentGame;
         switch (card.SelfCard.bonusStroiki)
         {
             case "Д":
@@ -145,26 +145,26 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                 // дает ПО за каждую черную постройку импреии и разово дает карту
                 break;
             case "ПО+КР/k":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 // дает ПО за каждую коричневую постройку импреии и разово дает карту
                 break;
             case "ПО+КР/r":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+               GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 // дает ПО за каждую розовую постройку импреии и разово дает карту
                 break;
             case "КР":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 break;
             case "ПО+КР/red":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 // дает ПО за каждую красную постройку импреии и разово дает карту
                 break;
             case "ПО+КР/j":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 // дает ПО за каждую жолтую постройку импреии и разово дает карту
                 break;
             case "ПО+КР/s":
-                GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                 // дает ПО за каждую серую постройку импреии и разово дает карту
                 break;
         }
@@ -199,8 +199,8 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
                 case "":
                     break;
                 case "КР":
-                    Game CurrentGame = GetComponent<GameManagerScr>().CurrentGame = new Game();
-                    GetComponent<GameManagerScr>().GiveHandCards(CurrentGame.ObDeckCard, GetComponent<GameManagerScr>().PlayerHand, 1);
+                    Game CurrentGame = GameManager.CurrentGame;
+                    GameManager.GiveHandCards(CurrentGame.ObDeckCard, GameManager.PlayerHand, 1);
                     Debug.Log("выдача карт");
                     break;
             }
@@ -251,7 +251,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         //проверка если карта находится в списке то удаляем ее от туда 
         if (GameManager.PlayerPoleDeystvieCard.Count != 0)
         {
-            PribovlenieRes(GameManager.PlayerPoleDeystvieCard[0].gameObject);
+            PribovlenieRes(GameManager.PlayerPoleDeystvieCard[0].gameObject); /// при удалении 0 надо делать сортировку иначе ошибка
             GameManager.PlayerPoleDeystvieCard.Remove(card);
             Destroy(GameManager.PlayerPoleDeystvieCard[0].gameObject);
         }

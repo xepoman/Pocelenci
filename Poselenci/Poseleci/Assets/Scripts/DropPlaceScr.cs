@@ -37,7 +37,8 @@ public class DropPlaceScr : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
         //карта которая была отпушена данным обьектом и присвоина с самой себя
         CardMovementScr card = eventData.pointerDrag.GetComponent<CardMovementScr>();
         //ограничение карт в руке игрока
-        if(card && card.GameManager.PlayerHandCard.Count <18 && card.GameManager.IsPlayerTurn && card.GameManager.PerezagruzkaFielCard.Count%2 == 0)
+        // && card.GameManager.PlayerHandCard.Count < 18  это проверка на кол-во карт на руке (!!!ОШИБКА в список PlayerHandCard только добовляет надо гдето удалить )
+        if (card && card.GameManager.IsPlayerTurn && card.GameManager.PerezagruzkaFielCard.Count%2 == 0) 
         {
             // переместили из одного списка в другой Удалили из общего добавили в руку
             card.GameManager.PerezagruzkaFielCard.Remove(card.GetComponent<CardInfoScr>());

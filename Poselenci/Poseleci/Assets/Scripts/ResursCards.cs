@@ -164,16 +164,16 @@ public class ResursCards : MonoBehaviour
              //   Debug.Log("Производит карточку");
                 break;
             case "З/jП<=3":
-                RaschetResZaPostr("j");
+               ObGold += RaschetResZaPostr("j");
                 break;
             case "Е/red <=3":
-                RaschetResZaPostr("red");
+               ObEda += RaschetResZaPostr("red");
                 break;
             case "Д/kП<=3":
-                RaschetResZaPostr("k");
+                ObDerevo += RaschetResZaPostr("k");
                 break;
             case "Р/rП<=3":
-                RaschetResZaPostr("r");
+                ObEmploe += RaschetResZaPostr("r");
                 break;
             case "ВЫбр ПР=ПР":
                 Debug.Log("муть");
@@ -182,7 +182,7 @@ public class ResursCards : MonoBehaviour
                 ObEmploe += 2;
                 break;
             case "К/sП<=3":
-                RaschetResZaPostr("s");
+               ObKamen += RaschetResZaPostr("s");
                 break;
             case "Д+Д":
                 ObDerevo += 2;
@@ -192,6 +192,9 @@ public class ResursCards : MonoBehaviour
     }
     int RaschetResZaPostr(string color) // функция ограничения ресурсов по проверки по цвету
     {
+        Debug.Log(GameManager.PlayerImpPoleDeystvieCard.Count);
+        Debug.Log(GameManager.PlayerImpPoleProizvodstvaCard.Count);
+        Debug.Log(GameManager.PlayerImpPolevSvoistvaCard.Count);
         int kolIspolzovaniaCard = 0;
         for (int i = 0; i < GameManager.PlayerImpPoleDeystvieCard.Count; i++)
         {
