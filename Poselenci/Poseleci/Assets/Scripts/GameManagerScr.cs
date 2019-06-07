@@ -198,7 +198,7 @@ public class GameManagerScr : MonoBehaviour
         //удалили карту  из колекции
         deck.RemoveAt(0);
     }
-    IEnumerator TurnFunc()
+    IEnumerator TurnFunc() // курутин
     {
         TurnTime = 300;
         TurnTimeTxt.text = TurnTime.ToString();
@@ -225,7 +225,7 @@ public class GameManagerScr : MonoBehaviour
         }
         ChangeTurn();
     }
-    void Raund()
+    void Raund() // метод раунда
     {
         if (PerezagruzkaFielCard.Count == 0 && CurrentGame.ObDeckCard.Count >= 4)
         {
@@ -258,10 +258,10 @@ public class GameManagerScr : MonoBehaviour
 
         EnemyHandCard.Add(PerezagruzkaFielCard[count]);
         PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[count]);
-        if (PerezagruzkaFielCard.Count % 2 != 0)
+        if (PerezagruzkaFielCard.Count % 2 != 0) // при ходе добавить в списки карты // можно добавить случайную карту
         {
             PerezagruzkaFielCard[0].transform.SetParent(PlayerHand);
-          //  PlayerHandCard.Add(PerezagruzkaFielCard[0]);
+            PlayerHandCard.Add(PerezagruzkaFielCard[0]);
             PerezagruzkaFielCard.Remove(PerezagruzkaFielCard[0]);
         }
     }

@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &110324728 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6414798253867530500, guid: fde7e81b1f1c1334da9f7c9a56d6ae53,
+    type: 3}
+  m_PrefabInstance: {fileID: 1509129184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &386496863
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +347,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1657199161}
+  - {fileID: 110324728}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -350,13 +356,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!224 &1657199161 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6414798253867530500, guid: fde7e81b1f1c1334da9f7c9a56d6ae53,
-    type: 3}
-  m_PrefabInstance: {fileID: 6414798253293249341}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6414798253293249341
+--- !u!1001 &1509129184
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2

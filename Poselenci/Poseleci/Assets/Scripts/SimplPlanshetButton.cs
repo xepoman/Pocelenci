@@ -8,22 +8,20 @@ public class SimplPlanshetButton : MonoBehaviour
     public Animator simplMenuAnim;
     public Animator contentResPlanshet;
     public GameObject btnViborGO;
-    ResursCards resCard;
+    private ResursCards resCard;
     bool isHiddle;
-    public Sprite vklBtnSvoystvaPlanshet;
-    public Sprite otklBtnSvoystvaPlanshet;
-    public Image imageBtnSvoiystvaPlansheta;
-    public Image imageBtnDeystviePlansheta;
+    public Text textEmploeSvoistv; // текст на кнопке для сохранения работников
+   
    
     int tempObEmploe;
     public bool ProverkaSvoistvPlansheta = false;
-    private void Start()
+ /*   private void Start()
     {
         RectTransform transform = contentResPlanshet.gameObject.transform as RectTransform; //для панели выбора ресурсов действий планшета перемеешение за приделы видемости при запуске 
         Vector2 position = transform.anchoredPosition;                                      //
         position.x -= transform.rect.width;                                                 //
         transform.anchoredPosition = position;                                              //
-    }
+    }*/
     void Awake()
     {
         resCard = FindObjectOfType<ResursCards>();
@@ -41,18 +39,18 @@ public class SimplPlanshetButton : MonoBehaviour
         {
             simplMenuAnim.SetBool("isHiddle", false);
             isHiddle = false;
-            if(!contentResPlanshet.GetBool("isHiddle"))
+          /*  if(!contentResPlanshet.GetBool("isHiddle"))
             {
                 DeystviePlanshetBtn();
-            }
+            }*/
         }
     }
-    public void DeystviePlanshetBtn() // кнопка вызова выбора ресурсов для обмена
+   /* public void DeystviePlanshetBtn() // кнопка вызова выбора ресурсов для обмена
     {
         contentResPlanshet.enabled = true;
         bool isHidle = contentResPlanshet.GetBool("isHiddle");
         contentResPlanshet.SetBool("isHiddle", !isHidle);
-
+        
         if (imageBtnDeystviePlansheta.sprite == vklBtnSvoystvaPlanshet)
         {
             imageBtnDeystviePlansheta.sprite = otklBtnSvoystvaPlanshet;
@@ -65,7 +63,7 @@ public class SimplPlanshetButton : MonoBehaviour
             return;
         }
         
-    }
+    }*/
     public void ObmenResDerevoBtn()
     {
         if (resCard.ObEmploe >= 2)
@@ -151,21 +149,18 @@ public class SimplPlanshetButton : MonoBehaviour
     }
     public void SvoistavPlanshetBtn() //кнопка свойств планшета  для сохранения ресурса работника
     {
-        if (imageBtnSvoiystvaPlansheta.sprite == vklBtnSvoystvaPlanshet)
+        if (ProverkaSvoistvPlansheta)
         {
-            imageBtnSvoiystvaPlansheta.sprite = otklBtnSvoystvaPlanshet;
             resCard.ObEmploe += tempObEmploe;
             ProverkaSvoistvPlansheta = false;
-            return;
+            tempObEmploe = 0;
         }
-
-        if(imageBtnSvoiystvaPlansheta.sprite == otklBtnSvoystvaPlanshet)
+        else if(!ProverkaSvoistvPlansheta)
         {
-            imageBtnSvoiystvaPlansheta.sprite = vklBtnSvoystvaPlanshet;
             tempObEmploe = resCard.ObEmploe;
             resCard.ObEmploe = 0;
             ProverkaSvoistvPlansheta = true;
-            return;
         }
+        textEmploeSvoistv.text = tempObEmploe.ToString();
     }
 }

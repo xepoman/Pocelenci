@@ -49,11 +49,13 @@ public class CardInfoScr : MonoBehaviour
     }*/
     public void HideCardInfo(Card card)//закртые карты
     {
+        Pole.enabled = false;
         SelfCard = card;
         HideObjIMP.SetActive(true);
     }
     public void ShowCardInfo(Card card) // открытые карты
     {
+        Pole.enabled = true;
         SelfCard = card;
         HideObjIMP.SetActive(false);
         Pole.sprite = card.Logo;

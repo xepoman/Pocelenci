@@ -9,12 +9,12 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     GameManagerScr GameManager;
     CardInfoScr card;
     ResursCards resCard;
-    bool boolDeystie = false;
+  /*  bool boolDeystie = false;
     bool boolProizvodstvo = false;
     bool boolSvoystvo = false;
     bool boolDeystieImp = false;
     bool boolProizvodstvoImp = false;
-    bool boolSvoystvoImp = false;
+    bool boolSvoystvoImp = false;*/
 
     void Awake()
     {
@@ -27,7 +27,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         DefaultParent = transform.parent;
         if (DefaultParent.name == "planshet"|| DefaultParent.name == "BG")
             return;
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE)
+     /*   if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE)
         {
             boolDeystie = true;
             Debug.Log("deystvie");
@@ -56,7 +56,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         {
             boolProizvodstvoImp = true;
             Debug.Log("ProizvodstvoImp");
-        }
+        }*/
         else return;
         
     }
@@ -69,23 +69,9 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
         //  card = eventData.pointerDrag.GetComponent<CardInfoScr>();
         // когда отпускаем карту смотрим в каком поле
         DefaultParent = transform.parent;
-        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE && !boolDeystie)
-        {
-            Debug.Log(card.SelfCard.cenaPostroiki);
-            //отнимаем и добавляем из одного списка в другой (с руки в поле)
-            cardMovement.GameManager.PlayerPoleDeystvieCard.Add(cardMovement.GetComponent<CardInfoScr>());
-            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
-            OtnimaemRes();
-        }
-        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST && !boolSvoystvo)
-        {
-            Debug.Log(card.SelfCard.cenaPostroiki);
-            //отнимаем и добавляем из одного списка в другой (с руки в поле)
-            cardMovement.GameManager.PlayerPoleSvoistvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
-            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
-            OtnimaemRes();
-        }
-        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO && !boolProizvodstvo)
+
+        //Добавление карт в список и удаление 
+        if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_PROIZVODSTVO)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             //отнимаем и добавляем из одного списка в другой (с руки в поле)
@@ -93,7 +79,23 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE && !boolDeystieImp)
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_DEISTVIE)
+        {
+            Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerPoleDeystvieCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
+            OtnimaemRes();
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_POLE_OSOBENOST)
+        {
+            Debug.Log(card.SelfCard.cenaPostroiki);
+            //отнимаем и добавляем из одного списка в другой (с руки в поле)
+            cardMovement.GameManager.PlayerPoleSvoistvaCard.Add(cardMovement.GetComponent<CardInfoScr>());
+            cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
+            OtnimaemRes();
+        }
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_DEISTVIE)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             //отнимаем и добавляем из одного списка в другой (с руки в поле)
@@ -101,7 +103,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST && !boolSvoystvoImp)
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_OSOBENOST)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             //отнимаем и добавляем из одного списка в другой (с руки в поле)
@@ -109,7 +111,7 @@ public class HodCarta : MonoBehaviour, IEndDragHandler, IBeginDragHandler
             cardMovement.GameManager.PlayerHandCard.Remove(cardMovement.GetComponent<CardInfoScr>());
             OtnimaemRes();
         }
-        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO && !boolProizvodstvoImp)
+        else if (card && DefaultParent.GetComponent<DropPlaceScr>().Typee == FieldType.Player_IMPERIA_PROIZVODSTVO)
         {
             Debug.Log(card.SelfCard.cenaPostroiki);
             //отнимаем и добавляем из одного списка в другой (с руки в поле)

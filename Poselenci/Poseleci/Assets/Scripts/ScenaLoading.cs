@@ -24,7 +24,7 @@ public class ScenaLoading : MonoBehaviour
         {
             float progress = operation.progress / 0.9f;
             loadingImg.fillAmount = progress;
-            progresText.text = string.Format("{0:0}%", progress);
+            progresText.text = string.Format("{0:0}%", progress * 100);
             yield return null; // пропустили кадр
         }
     }

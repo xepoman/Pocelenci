@@ -681,7 +681,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 752a17744afd19d4f8ddf5301387b45a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 943eed9aa74733b4bb52a133ba80cb19, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -864,6 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultParent: {fileID: 0}
   DefaultTempCardParent: {fileID: 0}
+  PoinClickGO: {fileID: 0}
   IsDraggable: 0
   GameManager: {fileID: 0}
 --- !u!114 &3422245746616550576
@@ -879,7 +880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pole: {fileID: 7163969972752942246}
-  GameManager: {fileID: 0}
   HideObjIMP: {fileID: 5156710431844973585}
 --- !u!225 &4957252369691831169
 CanvasGroup:

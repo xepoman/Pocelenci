@@ -72,13 +72,13 @@ public class ResursCards : MonoBehaviour
     }
     public void ShowResurs()
     {
-        EmploeTxt.text = "Emploe " + ObEmploe.ToString();
-        DerevoTxt.text = "Derevo " + ObDerevo.ToString();
-        KamenTxt.text = "Kamen " + ObKamen.ToString();
-        GoldTxt.text = "Gold " + ObGold.ToString();
-        EdaTxt.text = "Eda " + ObEda.ToString();
-        POTxt.text = "PO " + ObPO.ToString();
-        OrujeeTxt.text = "Orujee " + ObOrujee.ToString();
+        EmploeTxt.text = ObEmploe.ToString();
+        DerevoTxt.text = ObDerevo.ToString();
+        KamenTxt.text = ObKamen.ToString();
+        GoldTxt.text = ObGold.ToString();
+        EdaTxt.text = ObEda.ToString();
+        POTxt.text = ObPO.ToString();
+        OrujeeTxt.text = ObOrujee.ToString();
     }
     public void PlanshetVarvar()
     {

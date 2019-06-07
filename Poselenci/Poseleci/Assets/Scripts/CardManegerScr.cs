@@ -165,9 +165,9 @@ public class CardManegerScr : MonoBehaviour
         CardManager.AllCards.Add(new Card("ObZolotoRudnik", "Sprites/Cards/ObZolotoRudnik",                "Д+К",  "ПО+З", "j", 3,             "Р=З", "", 2, 1));
         CardManager.AllCards.Add(new Card("ObZolotoyPriisk", "Sprites/Cards/ObZolotoyPriisk",              "Д+К",   "Р+З", "j", 1,                "З", "", 0, 1));
 
-        CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpDremuchiyLes", "Sprites/CardsVarvar/VarImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
-        CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpDremuchiyLes", "Sprites/CardsVarvar/VarImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
-        CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpDremuchiyLes", "Sprites/CardsVarvar/VarImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
+        CardManager.AllCardsImperiaVarvar.Add(new Card("KosmoImpDremuchiyLes", "Sprites/Kosmo/KosmoImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
+        CardManager.AllCardsImperiaVarvar.Add(new Card("KosmoImpDremuchiyLes", "Sprites/Kosmo/KosmoImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
+        CardManager.AllCardsImperiaVarvar.Add(new Card("KosmoImpDremuchiyLes", "Sprites/Kosmo/KosmoImpDremuchiyLes", "Д", "", "k", 4, "Д+Д", "", 0, 2));
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpKapishe", "Sprites/CardsVarvar/VarImpKapishe", "Д+Д+П", "", "j", 6, "Р=ПО", "", 2, 2));
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpKapishe", "Sprites/CardsVarvar/VarImpKapishe", "Д+Д+П", "", "j", 6, "Р=ПО", "", 2, 2));
         CardManager.AllCardsImperiaVarvar.Add(new Card("VarImpKapishe", "Sprites/CardsVarvar/VarImpKapishe", "Д+Д+П", "", "j", 6, "Р=ПО", "", 2, 2));
